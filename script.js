@@ -16,32 +16,42 @@ function processResults() {
 
   resultArea.innerHTML = "You are " + personalityResult
 
+//getPersonality for most number of occurances
   function getPersonality() {
+
+    let resultsCount = {
+      donatello: 0,
+      raphael: 0,
+      michelangelo: 0,
+      leonardo: 0
+    }
+
     let toppingChoice = document.querySelector('input[name="topping"]:checked');
-    // console.log(toppingChoice.id)
     let weaponChoice = document.querySelector('input[name="weapon"]:checked');
-    // console.log(weaponChoice.id)
     let colorChoice = document.querySelector('input[name="color"]:checked');
-    // console.log(colorChoice.id)
-    let totalPoints = 0; // 1
-    totalPoints = totalPoints + toppingPoints[toppingChoice.id]
-    totalPoints = totalPoints + weaponPoints[weaponChoice.id]
-    totalPoints = totalPoints + colorPoints[colorChoice.id]
-    console.log(totalPoints)
+
+    //adds occurances to resultsCount object
+    resultsCount[toppingChoice.className]++;
+    resultsCount[weaponChoice.className]++;
+    resultsCount[colorChoice.className]++;
+
+    //loops through resultsCount and returns key with highest value
+    let currentHighestValue = 0;
+    let currentHighestKey = "";
+    for (var key in resultsCount) {
+      if (resultsCount[key] > currentHighestValue) {
+        currentHighestValue = resultsCount[key];
+        currentHighestKey = key;
+      }
+    }
+    return currentHighestKey;
+
+
+
 
     toppingChoice.checked = false;
     weaponChoice.checked = false;
     colorChoice.checked = false;
-
-    if (totalPoints <= 1) {
-      return "michelangelo"
-    } else if (totalPoints <= 3) {
-      return "raphael"
-    } else if (totalPoints <= 5) {
-      return "donatello"
-    } else {
-      return "leonardo"
-    }
   }
 
 }
@@ -50,28 +60,6 @@ function processResults() {
 function resetQuiz() {
   resultArea.innerHTML = ""
 
-}
-
-//point system
-let toppingPoints = {
-     pepperoni: 1,
-     mushroom: 0,
-     "green-peppers": 2,
-     pineapple: 0
-}
-
-let weaponPoints = {
-     katana: 0,
-     "bo-staff": 1,
-     "sai-daggers": 1,
-     nunchucks: 2
-}
-
-let colorPoints = {
-  blue: 2,
-  purple: 1,
-  red: 0,
-  orange: 3
 }
 
 
